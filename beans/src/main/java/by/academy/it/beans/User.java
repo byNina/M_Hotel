@@ -3,6 +3,11 @@ package by.academy.it.beans;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+
 
 /**
  * @author shevchenko
@@ -10,6 +15,7 @@ import java.util.List;
  */
 @javax.persistence.Entity
 @Table(name = "users")
+@Proxy(lazy = false)
 public class User extends Entity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,8 +35,8 @@ public class User extends Entity implements Serializable {
     @Column(name = "account_type")
     private Integer accountType;
 
-    @OneToMany(mappedBy = "user")
-    private List<Request> requests;
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+        private List<Request> requests;
 
 
     @Override
@@ -60,7 +66,7 @@ public class User extends Entity implements Serializable {
 
     @Override
     public String toString() {
-        return "User [login=" + login + ", userData=" + userInfo + "]";
+        return "User [login=" + login + ", userData=" + userInfo +"]";
     }
 
     public int getId() {

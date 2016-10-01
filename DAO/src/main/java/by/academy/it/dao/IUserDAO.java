@@ -1,6 +1,7 @@
 package by.academy.it.dao;
 
 import by.academy.it.beans.User;
+import by.academy.it.constants.AccessLevel;
 
 import java.util.List;
 
@@ -10,5 +11,12 @@ import java.util.List;
 public interface IUserDAO<T> extends IDAO<T> {
 
     List<User> getAllUsers();
+
+    User getUserById (Integer userId);
+
+    User getUser(String login,String password);
+
+    User getUser(String login);
+
 
 }

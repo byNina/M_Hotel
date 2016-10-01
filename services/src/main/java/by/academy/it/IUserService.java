@@ -1,6 +1,7 @@
 package by.academy.it;
 
 import by.academy.it.beans.User;
+import by.academy.it.constants.AccessLevel;
 
 import java.util.List;
 
@@ -10,4 +11,12 @@ import java.util.List;
 public interface IUserService {
 
     List<User> getAllUsers();
+
+    User getUserById(Integer userId);
+
+    boolean isAuthorized(String login, String password);
+
+    User getUser(String login);
+
+
 }

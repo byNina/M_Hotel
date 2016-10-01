@@ -24,22 +24,22 @@ import java.util.List;
 public enum UserDAO implements AbstractDAO<User> {
   INSTANCE;
 
-  public User getUserById(String id) throws SQLException {
-	User user = null;
-
-	Connection connection = ConnectionPool.INSTANCE.getConnection();
-	String query = SqlRequests.GET_USER_BY_ID;
-	PreparedStatement ps = connection.prepareStatement(query);
-	ps.setString(1, id);
-	ResultSet result = ps.executeQuery();
-	user = new User();
-	while (result.next()) {
-	  user.setLogin(result.getString("login"));
-	  user.setUserInfo(result.getString("contact_data"));
-	}
-	return user;
-
-  }
+//  public User getUserById(String id) throws SQLException {
+//	User user = null;
+//
+//	Connection connection = ConnectionPool.INSTANCE.getConnection();
+//	String query = SqlRequests.GET_USER_BY_ID;
+//	PreparedStatement ps = connection.prepareStatement(query);
+//	ps.setString(1, id);
+//	ResultSet result = ps.executeQuery();
+//	user = new User();
+//	while (result.next()) {
+//	  user.setLogin(result.getString("login"));
+//	  user.setUserInfo(result.getString("contact_data"));
+//	}
+//	return user;
+//
+//  }
 
   /*
    * (non-Javadoc)
@@ -82,19 +82,19 @@ public enum UserDAO implements AbstractDAO<User> {
 	return null;
   }
 
-  public boolean isAuthorized(String login, String password) throws SQLException {
-	boolean isLogIn = false;
-	Connection connection = ConnectionPool.INSTANCE.getConnection();
-	PreparedStatement statement = connection.prepareStatement(SqlRequests.CHECK_AUTHORIZATION);
-	statement.setString(1, login);
-	statement.setString(2, password);
-	ResultSet result = statement.executeQuery();
-	if (result.next()) {
-	  isLogIn = true;
-	}
-	ConnectionPool.INSTANCE.releaseConnection(connection);
-	return isLogIn;
-  }
+//  public boolean isAuthorized(String login, String password) throws SQLException {
+//	boolean isLogIn = false;
+//	Connection connection = ConnectionPool.INSTANCE.getConnection();
+//	PreparedStatement statement = connection.prepareStatement(SqlRequests.CHECK_AUTHORIZATION);
+//	statement.setString(1, login);
+//	statement.setString(2, password);
+//	ResultSet result = statement.executeQuery();
+//	if (result.next()) {
+//	  isLogIn = true;
+//	}
+//	ConnectionPool.INSTANCE.releaseConnection(connection);
+//	return isLogIn;
+//  }
 
   /**
    * @param login
@@ -118,21 +118,21 @@ public enum UserDAO implements AbstractDAO<User> {
 	return user;
   }
 
-  public AccessLevel checkAccessLevel(String login) throws SQLException {
-	AccessLevel accessLvl = null;
-	Connection connection = ConnectionPool.INSTANCE.getConnection();
-	PreparedStatement statement = connection.prepareStatement(SqlRequests.CHECK_ACCESS_LEVEL);
-	statement.setString(1, login);
-	ResultSet result = statement.executeQuery();
-	while (result.next()) {
-	  if (AccessLevel.USER.accessLevel() == result.getInt(ColumnNames.USER_ACCESS_LEVEL)) {
-		accessLvl = AccessLevel.USER;
-	  } else {
-		accessLvl = AccessLevel.ADMIN;
-	  }
-	}
-	ConnectionPool.INSTANCE.releaseConnection(connection);
-	return accessLvl;
-  }
+//  public AccessLevel checkAccessLevel(String login) throws SQLException {
+//	AccessLevel accessLvl = null;
+//	Connection connection = ConnectionPool.INSTANCE.getConnection();
+//	PreparedStatement statement = connection.prepareStatement(SqlRequests.CHECK_ACCESS_LEVEL);
+//	statement.setString(1, login);
+//	ResultSet result = statement.executeQuery();
+//	while (result.next()) {
+//	  if (AccessLevel.USER.accessLevel() == result.getInt(ColumnNames.USER_ACCESS_LEVEL)) {
+//		accessLvl = AccessLevel.USER;
+//	  } else {
+//		accessLvl = AccessLevel.ADMIN;
+//	  }
+//	}
+//	ConnectionPool.INSTANCE.releaseConnection(connection);
+//	return accessLvl;
+//  }
 
 }

@@ -33,7 +33,7 @@ Get All Users
     <c:forEach items="${users}" var="item">
         <tr>
             <td>${item.id}</td>
-            <td>${item.login}</td>
+            <td><a href="userInfo?userId=${item.id}">${item.login}</a></td>
             <td>${item.userInfo}</td>
         </tr>
     </c:forEach>

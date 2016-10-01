@@ -5,9 +5,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by User on 23.09.2016.
@@ -35,7 +37,18 @@ public class BaseDAOImpl<T> implements IDAO<T> {
 
     @Override
     public T get(Serializable id) throws DaoException {
-        return null;
+        System.out.println("in BaseDAO get");
+        log.info("Get entity by id: " + id);
+        T t = null;
+        try {
+            t = (T) getSession().get(getPersistentClass(), id);
+            System.out.println("Base DAO done" + t);
+            log.info("Got entity: " + t);
+        } catch (HibernateException e) {
+            log.error("Error getting entity of " + getPersistentClass().getName() + " class.");
+            throw new DaoException(e);
+        }
+        return t;
     }
 
     @Override
@@ -51,6 +64,11 @@ public class BaseDAOImpl<T> implements IDAO<T> {
     @Override
     public Serializable save(T entity) throws DaoException {
         return null;
+    }
+
+
+    private Class<T> getPersistentClass() {
+        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     public Session getSession() {
