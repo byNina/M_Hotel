@@ -1,6 +1,7 @@
 package by.academy.it.beans;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.annotations.Proxy;
@@ -24,9 +25,11 @@ public class User extends Entity implements Serializable {
     private int id;
 
     @Column(name = "login")
+    @Size(min = 4, max=10, message = "Name must be longer then 4 letters, but shorter then 10")
     private String login;
 
     @Column(name = "password")
+    @Size(min = 4, message = "Password must be longer then 4 symbols")
     private String password;
 
     @Column(name = "contact_data")

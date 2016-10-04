@@ -3,7 +3,7 @@
  */
 package by.academy.it.filters;
 
-import by.academy.it.UserService;
+import by.academy.it.services.UserService;
 import by.academy.it.constants.Parameters;
 import by.academy.it.constants.AccessLevel;
 import by.academy.it.constants.ConfigsConstants;

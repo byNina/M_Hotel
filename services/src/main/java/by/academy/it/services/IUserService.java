@@ -1,4 +1,4 @@
-package by.academy.it;
+package by.academy.it.services;
 
 import by.academy.it.beans.User;
 import by.academy.it.constants.AccessLevel;
@@ -8,15 +8,18 @@ import java.util.List;
 /**
  * Created by User on 24.09.2016.
  */
-public interface IUserService {
+public interface IUserService<T> {
 
-    List<User> getAllUsers();
+    List<T> getAllUsers();
 
-    User getUserById(Integer userId);
+    T getUserById(Integer userId);
 
     boolean isAuthorized(String login, String password);
 
-    User getUser(String login);
+    T getUser(String login);
+
+    void save (T t);
+
 
 
 }

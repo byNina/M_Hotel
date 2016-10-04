@@ -19,19 +19,18 @@
     <title><fmt:message key="index.title"/></title>
 </head>
 <body>
-<%@ include file="/jsp/elements/_header.jsp" %>
-<%@ include file="/jsp/elements/_auth.jsp" %>
+<%@ include file="/WEB-INF/jsp/elements/_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/elements/_auth.jsp" %>
 <p>access Level ${accessLevel}</p>
 
 <fmt:message key="main.intro"/>
 
 <p></p>
 <form name="loginForm2" method="POST" action="test">
-    <%--<input type="hidden" name="command" value="test" /> --%>
-    <input type="submit" value="Тест контроллера"/>
+       <input type="submit" value="Тест контроллера"/>
 </form>
 
 
-<c:import url="/jsp/elements${sideBar}"/>
+<c:import url="/WEB-INF/jsp/elements${sideBar}"/>
 </body>
 </html>

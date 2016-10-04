@@ -6,20 +6,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
+<script type="text/javascript" src="js/validation.js"></script>
 New Request
-<form name="requestForm" method="POST" action="controller">
+<form name="requestForm" method="POST"  action="controller">
 <input type="hidden" name="command" value="createnewrequest" />
 
  Введите	ваши данные:<br />
 		<table>
 			<tr>
 				<td>Дата заселения:</td>
-				<td><input type="text" name="checkIn" value="" size="20" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" placeholder="DD.mm.yyyy"/></td>
+				<td><input id="Date1" type="text" name="checkIn" onchange="validateDate()" value="" size="20" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" placeholder="DD.mm.yyyy"/></td>
 			</tr>
 			<tr>
 				<td>Дата выселения:</td>
-				<td><input type="text" name="checkOut" value="" size="20" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" placeholder="DD.mm.yyyy"/></td>
+				<td><input id="Date2" type="text" name="checkOut" value="" size="20" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" placeholder="DD.mm.yyyy"/></td>
 			</tr>
 			<tr>
 				<td>Количество взрослых:</td>

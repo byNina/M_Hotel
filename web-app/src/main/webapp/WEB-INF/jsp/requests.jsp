@@ -19,10 +19,12 @@
     <title><fmt:message key="index.title"/></title>
 </head>
 <body>
-<%@ include file="/jsp/elements/_header.jsp" %>
-<%@ include file="/jsp/elements/_auth.jsp" %>
+<%@ include file="/WEB-INF/jsp/elements/_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/elements/_auth.jsp" %>
 <p>access Level ${accessLevel}</p>
 
+
+<%@ include file="/WEB-INF/jsp/elements/_pagination.jsp" %>
 Requests
 <table border="1">
     <tr>
@@ -38,19 +40,18 @@ Requests
 
     <c:forEach items="${requests}" var="item">
 
-        <form name="toInvoiceForm" method="post" action="controller">
-            <input type="hidden" name="command" value="toInvoice"/>
+        <form name="toInvoiceForm" method="post" action="toInvoice">
             <tr>
                 <td>${item.id}</td>
 
                 <c:if test="${accessLevel == 'ADMIN'}">
-                    <td><a href="controller?command=userInfo&userId=${item.user.id}"> ${item.user.login}</a></td>
+                    <td><a href="userInfo?userId=${item.user.id}"> ${item.user.login}</a></td>
                 </c:if>
                 <td>${item.checkIn}</td>
                 <td>${item.checkOut}</td>
                 <td>${item.adults}</td>
                 <td><c:choose>
-                    <c:when test="${item.invoice.id=='0'}">
+                    <c:when test="${empty item.invoice.id}">
                         <input type="submit" value="Выставить счет"/>
                     </c:when>
                     <c:otherwise>
@@ -61,6 +62,6 @@ Requests
         </form>
     </c:forEach>
 </table>
-<c:import url="/jsp/elements${sideBar}"/>
+<c:import url="/WEB-INF/jsp/elements${sideBar}"/>
 </body>
 </html>

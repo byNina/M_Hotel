@@ -1,4 +1,3 @@
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript" src="js/validation.js"></script>
 
 
@@ -21,7 +20,6 @@
 <%--</sf:form>--%>
 
 
-<a href="controller?command=gotoregistration"><fmt:message
-        key="main.regestration"/></a>
-<a href="controller?command=logout"><fmt:message key="main.logout"/></a>
+<a href="registration"><fmt:message key="main.regestration"/></a>
+<a href="logout"><fmt:message key="main.logout"/></a>
 <hr/>

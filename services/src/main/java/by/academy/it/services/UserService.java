@@ -1,9 +1,9 @@
-package by.academy.it;
+package by.academy.it.services;
 
 import by.academy.it.beans.User;
-import by.academy.it.constants.AccessLevel;
 import by.academy.it.dao.IUserDAO;
 import by.academy.it.exceptions.DaoException;
+import by.academy.it.exceptions.ServiceException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class UserService implements IUserService {
+public class UserService implements IUserService<User> {
     private static Logger log = Logger.getLogger(UserService.class);
 
     @Autowired
@@ -73,6 +73,16 @@ public class UserService implements IUserService {
             log.error("Error getting user by Login & Password" + e);
         }
         return user;
+    }
+
+    public void save(User user) {
+        try {
+            userDAO.saveOrUpdate(user);
+        } catch (HibernateException e) {
+            log.error("Error during saving Entity" + e);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
 

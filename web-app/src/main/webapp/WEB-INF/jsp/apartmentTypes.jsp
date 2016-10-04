@@ -17,10 +17,10 @@
 <title><fmt:message key="index.title" /></title>
 </head>
 <body>
-	<%@ include file="/jsp/elements/_header.jsp"%>
-	<%@ include file="/jsp/elements/_auth.jsp"%>
+	<%@ include file="/WEB-INF/jsp/elements/_header.jsp"%>
+	<%@ include file="/WEB-INF/jsp/elements/_auth.jsp"%>
 	<p>access Level ${accessLevel}</p>
-	<c:import url="/jsp/elements${sideBar}" />
+	<c:import url="/WEB-INF/jsp/elements${sideBar}" />
 
 	Apartment Types
 

@@ -9,7 +9,7 @@
 <body>
 Test
 
-<a href="controller?command=back">Вернуться обратно</a>
+<a href="back">Вернуться обратно</a>
 
 </body>
 </html>
