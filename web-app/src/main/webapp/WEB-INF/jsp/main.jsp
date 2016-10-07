@@ -3,8 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if
-        test="${sessionScope.locale == 'locale_ru_RU' or empty sessionScope.locale}">
+<c:if test="${sessionScope.locale == 'locale_ru_RU' or empty sessionScope.locale}">
     <fmt:setBundle basename="locale_ru_RU"/>
 </c:if>
 <c:if test="${sessionScope.locale == 'locale_en_US'}">
@@ -17,20 +16,85 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><fmt:message key="index.title"/></title>
+    <link
+            href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+            rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.servletContext.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"
+          media="screen"/>
+
 </head>
 <body>
-<%@ include file="/WEB-INF/jsp/elements/_header.jsp" %>
-<%@ include file="/WEB-INF/jsp/elements/_auth.jsp" %>
-<p>access Level ${accessLevel}</p>
+<div class="wrapper">
+    <div class="header">
+        <%@ include file="/WEB-INF/jsp/elements/_header.jsp" %>
+    </div> <!-- end of header -->
+    <div id="wrapper">
+        <div id="splash" class="container">
+            <span><fmt:message key="body.title"/></span>
+                   </div>
 
-<fmt:message key="main.intro"/>
+        <div id="page" class="container">
+            <div id="content">
+                <div class="post">
+                    <h2 class="title">
+                        <a href="#"><fmt:message key="body.greetings"/> </a>
+                    </h2>
+                    <div class="entry">
 
-<p></p>
-<form name="loginForm2" method="POST" action="test">
-       <input type="submit" value="Тест контроллера"/>
-</form>
 
+                        <img src="${pageContext.servletContext.contextPath}/resources/images/page1_img1.jpg" alt>
+                        <h3> Rooms</h3>
+                        <em> comfortable solution</em>
+                        <p> Our fully equipped superior rooms offer functionality and comfort at the same time in
+                            which include a king size bed or twin beds. In the 20 m² area of superior.</p>
 
-<c:import url="/WEB-INF/jsp/elements${sideBar}"/>
+                        <div class="icons i1"></div>
+                        <a href="" class="btn">
+                            "Read More"
+                        </a>
+
+                        <br>
+                        <br>
+                        <br>
+                        <img src="${pageContext.servletContext.contextPath}/resources/images/page1_img2.jpg" alt>
+                        <h3> Our Service</h3>
+                        <em> breakfast included</em>
+                        <p> The terrace restaurant where the breakfast is served has a panoramic view of Hippodrome
+                            Square, Blue Mosque, St. Sophie and the Sea of Marmara.</p>
+
+                        <div class="icons"></div>
+                        <a href="" class="btn">
+                            "Read More"
+                        </a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <%--<div style="clear: both;">&nbsp;</div>--%>
+            <div id="sidebar">
+
+                <fmt:message key="main.intro"/>
+
+                <c:import url="/WEB-INF/jsp/elements${sideBar}"/>
+                <p></p>
+                <form name="loginForm2" method="POST" action="test">
+                    <input type="submit" value="Тест контроллера"/>
+                </form>
+            </div>
+            <!-- end #sidebar -->
+        </div>
+        <!-- end #content -->
+
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    <!-- end #page -->
+</div>
+
+<div id="footer">
+    <p>
+        © 2016 </a>.
+    </p>
+</div>
+<!-- end #footer -->
 </body>
 </html>

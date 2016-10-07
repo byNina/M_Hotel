@@ -48,7 +48,6 @@ public class UserController {
     @RequestMapping(path = "**/userInfo", method = RequestMethod.GET)
     private String showUserInfo(@RequestParam(value = "userId") Integer userId, ModelMap model) {
         User user = null;
-        System.out.println("userId" + userId);
         user = (User) userService.getUserById(userId);
         System.out.println("user" + user);
         if (user != null) {
@@ -59,7 +58,7 @@ public class UserController {
         return "userInfo";
     }
 
-    @RequestMapping(path = "/users/login", method = RequestMethod.POST)
+    @RequestMapping(path = "**/users/login", method = RequestMethod.POST)
     private String login(ModelMap model, HttpServletRequest request) {
         System.out.println("Register");
         String page = null;
@@ -86,7 +85,7 @@ public class UserController {
                 default:
             }
         } else {
-            page = ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.INDEX_PAGE_PATH);
+            page = "errorpage";
             request.setAttribute(Parameters.ERROR_LOGIN_OR_PASSWORD,
                     MessageManager.INSTANCE.getProperty(MessageConstants.WRONG_LOGIN_OR_PASSWORD));
         }
@@ -119,16 +118,20 @@ public class UserController {
         return "main";
     }
 
-    @RequestMapping(path = "addUser", method = RequestMethod.POST)
+    @RequestMapping(path = "**/addUser", method = RequestMethod.POST)
     public String userRegistration(@Valid User user, ModelMap model, BindingResult result, HttpServletRequest request) {
+        System.out.println("in addUser command");
         if (result.hasErrors()) {
             System.out.println("has valid error");
-            return "errorpage";
+            request.setAttribute("errorMessage", MessageManager.INSTANCE.getProperty(MessageConstants.FILDS_HAVE_ERRORS));
+            return "registration";
         }
         if (user != null) {
+            System.out.println("New User" + user);
             userService.save(user);
             model.addAttribute("user", user);
         }
+        System.out.println("before out");
         return "main";
     }
 

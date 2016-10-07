@@ -29,7 +29,7 @@ public class AdminController {
 
     private static Logger log = Logger.getLogger(UserController.class);
 
-    @RequestMapping(path = "getAllUsers", method = RequestMethod.GET)
+    @RequestMapping(path = "**/getAllUsers", method = RequestMethod.GET)
     private String getAllUsers(ModelMap model) {
         List<User> users = null;
         users = userService.getAllUsers();
