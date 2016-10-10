@@ -1,12 +1,12 @@
 package by.academy.it.beans;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 
@@ -24,11 +24,14 @@ public class User extends Entity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     @Column(name = "login")
+    @NotNull(message="Укажите Логин")
     @Size(min = 4, max=10, message = "Name must be longer then 4 letters, but shorter then 10")
     private String login;
 
     @Column(name = "password")
+    @NotNull (message="Укажите пароль")
     @Size(min = 4, message = "Password must be longer then 4 symbols")
     private String password;
 

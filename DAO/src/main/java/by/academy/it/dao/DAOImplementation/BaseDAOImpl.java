@@ -1,5 +1,6 @@
-package by.academy.it.dao;
+package by.academy.it.dao.DAOImplementation;
 
+import by.academy.it.dao.IDAO;
 import by.academy.it.exceptions.DaoException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -7,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -14,9 +17,10 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by User on 23.09.2016.
  */
+@Repository
 public class BaseDAOImpl<T> implements IDAO<T> {
+    private Logger log = Logger.getLogger(getClass());
 
-    protected Logger log = Logger.getLogger(getClass());
     @Autowired
     protected SessionFactory sessionFactory;
 
@@ -39,7 +43,7 @@ public class BaseDAOImpl<T> implements IDAO<T> {
     public T get(Serializable id) throws DaoException {
         System.out.println("in BaseDAO get");
         log.info("Get entity by id: " + id);
-        T t = null;
+        T t ;
         try {
             t = (T) getSession().get(getPersistentClass(), id);
             System.out.println("Base DAO done" + t);

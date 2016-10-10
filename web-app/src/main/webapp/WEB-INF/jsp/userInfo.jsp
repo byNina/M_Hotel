@@ -51,17 +51,17 @@
                         Requests
                         <table border="1">
                             <tr>
-                                <td> Id</td>
-                                <td> Date checkIn</td>
-                                <td> Date checkOut</td>
-                                <td> Adults</td>
-                                <td> Invoice</td>
+                                <th> Id</th>
+                                <th> Date checkIn</th>
+                                <th> Date checkOut</th>
+                                <th> Adults</th>
+                                <th> Invoice</th>
 
                                 <c:forEach items="${user_info.requests}" var="item">
                             </tr>
                             <td>${item.id}</td>
-                            <td>${item.checkIn}</td>
-                            <td>${item.checkOut}</td>
+                            <td><fmt:formatDate value='${item.checkIn}' pattern='yyyy-MM-dd'/></td>
+                            <td><fmt:formatDate value='${item.checkOut}' pattern='yyyy-MM-dd'/></td>
                             <td>${item.adults}</td>
                             <td><c:choose>
                                 <c:when test="${item.invoice.id=='0'}">

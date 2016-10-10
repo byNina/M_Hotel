@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Controller
 public class AdminController {
+
     @Autowired
     private IUserService userService;
 
@@ -29,9 +30,9 @@ public class AdminController {
 
     private static Logger log = Logger.getLogger(UserController.class);
 
-    @RequestMapping(path = "**/getAllUsers", method = RequestMethod.GET)
+    @RequestMapping(path = "getAllUsers", method = RequestMethod.GET)
     private String getAllUsers(ModelMap model) {
-        List<User> users = null;
+        List<User> users;
         users = userService.getAllUsers();
         System.out.println("users" + users);
         if (!users.isEmpty() && (users != null)) {
@@ -43,10 +44,10 @@ public class AdminController {
     }
 
 
-    @RequestMapping(path = "**/showRequests", method = RequestMethod.GET)
+    @RequestMapping(path = "showRequests", method = RequestMethod.GET)
     private String showAllRequests(ModelMap model, HttpSession session, HttpServletRequest request) {
-        List<Request> requests = null;
-        PaginationDTO pagination = null;
+        List<Request> requests;
+        PaginationDTO pagination;
         int page = 1;
         if (session.getAttribute("pagination") == null) {
             pagination = new PaginationDTO();
@@ -78,10 +79,10 @@ public class AdminController {
         return "requests";
     }
 
-    @RequestMapping(path = "**/pagination", method = RequestMethod.GET)
+    @RequestMapping(path = "pagination", method = RequestMethod.GET)
     private String pagination(ModelMap model, HttpSession session, HttpServletRequest request) {
-        String page = null;
-        PaginationDTO pagination = null;
+        String page;
+        PaginationDTO pagination;
         int pageSize = Integer.parseInt(request.getParameter("pagesize"));
         if (session.getAttribute("pagination") != null) {
             pagination = (PaginationDTO) session.getAttribute("pagination");
@@ -91,5 +92,9 @@ public class AdminController {
         return page;
     }
 
+    @RequestMapping(path = "invoiceForm", method = RequestMethod.POST)
+    private String toInvoiceForm(ModelMap model) {
+        return "invoiceForm";
+    }
 
 }

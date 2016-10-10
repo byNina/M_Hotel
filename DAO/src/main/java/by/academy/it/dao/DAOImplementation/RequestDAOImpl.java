@@ -1,6 +1,8 @@
-package by.academy.it.dao;
+package by.academy.it.dao.DAOImplementation;
 
 import by.academy.it.beans.Request;
+import by.academy.it.dao.DAOImplementation.BaseDAOImpl;
+import by.academy.it.dao.IRequestDAO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,21 +14,21 @@ import java.util.List;
 
 @Repository
 public class RequestDAOImpl extends BaseDAOImpl<Request> implements IRequestDAO<Request> {
+    private static final String GET_ALL_REQUESTS = "FROM Request R";
+    private static final String GET_USER_REQUEST = "FROM Request R WHERE R.user.id=:userId";
 
     @Override
     public List<Request> getAllRequests() {
-        String hql = "FROM Request R";
-        Query query = getSession().createQuery(hql);
+        Query query = getSession().createQuery(GET_ALL_REQUESTS);
         List<Request> results = query.list();
         return results;
     }
 
     @Override
     public List<Request> getAllRequests(Integer page, Integer pageSize) {
-        int fistResult = (page-1)*pageSize;
-        int maxResult = page*pageSize;
-        String hql = "FROM Request R";
-        Query query = getSession().createQuery(hql);
+        int fistResult = (page - 1) * pageSize;
+        int maxResult = page * pageSize;
+        Query query = getSession().createQuery(GET_ALL_REQUESTS);
         query.setFirstResult(fistResult);
         query.setMaxResults(maxResult);
         List<Request> results = query.list();
@@ -35,10 +37,9 @@ public class RequestDAOImpl extends BaseDAOImpl<Request> implements IRequestDAO<
 
     @Override
     public List<Request> getUserRequests(Integer id, Integer page, Integer pageSize) {
-        int fistResult = (page-1)*pageSize;
-        int maxResult = page*pageSize;
-        String hql = "FROM Request R WHERE R.user.id=:userId";
-        Query query = getSession().createQuery(hql);
+        int fistResult = (page - 1) * pageSize;
+        int maxResult = page * pageSize;
+        Query query = getSession().createQuery(GET_USER_REQUEST);
         query.setParameter("userId", id);
         query.setFirstResult(fistResult);
         query.setMaxResults(maxResult);

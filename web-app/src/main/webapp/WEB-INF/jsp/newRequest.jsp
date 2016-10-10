@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ include file="/WEB-INF/jsp/elements/_setLocale.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,10 +35,9 @@
                         <a href="#"><fmt:message key="body.greetings"/> </a>
                     </h2>
                     <div class="entry">
-                        <script type="text/javascript" src="js/validation.js"></script>
+                        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/resources/js/validation.js"></script>
                         New Request
-                        <form name="requestForm" method="POST" action="controller">
-                            <input type="hidden" name="command" value="createnewrequest"/>
+                        <form name="requestForm" method="POST" action="newRequest">
 
                             Введите ваши данные:<br/>
                             <table>
@@ -85,7 +88,7 @@
 
 <div id="footer">
     <p>
-        © 2016 </a>.
+        © 2016
     </p>
 </div>
 <!-- end #footer -->

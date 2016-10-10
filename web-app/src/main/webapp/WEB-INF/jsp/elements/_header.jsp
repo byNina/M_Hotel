@@ -5,28 +5,28 @@
     <div id="header" class="container">
         <div id="logo">
             <h1>
-                <a href="#">Solaris </a>
+                <a href="${pageContext.servletContext.contextPath}/main">Solaris hotel
+                          </a>
             </h1>
             <p>
                 <fmt:message key="index.title"/>
-                </a>
+
                 </form>
             </p>
 
         </div>
         <div id="menu">
-            <td style="width: 130px; vertical-align: middle;">
+            <span style="width: 130px; vertical-align: middle;">
                 <div class="locale_bar_frame">
                     <div class="locale_bar">
-                        <form action="setLang" method="post">
-                            <input type="image" src="${pageContext.servletContext.contextPath}/resources/images/GB.png"
-                                   alt="en_US" name="lang" value="en_US" id="EnLangButton"/>
+                        <form action="${pageContext.servletContext.contextPath}/setLang" method="get">
+                            <input type="image" src="${pageContext.servletContext.contextPath}/resources/images/GB.png" name="lang" value="en_US" alt="en_US"/>
                             <input type="image" src="${pageContext.servletContext.contextPath}/resources/images/RU.png"
-                                   alt="ru_RU" name="lang" value="ru_RU" id="RuLangButton"/>
+                                    name="lang" value="ru_RU" alt="ru_RU"/>
                         </form>
                     </div>
                 </div>
-            </td>
+            </span>
             <ul>
                 <%@include file="../elements/_auth.jsp" %>
             </ul>

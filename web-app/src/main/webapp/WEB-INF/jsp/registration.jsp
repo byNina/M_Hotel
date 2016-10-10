@@ -4,13 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<c:if
-        test="${sessionScope.locale == 'locale_ru_RU' or empty sessionScope.locale}">
-    <fmt:setBundle basename="locale_ru_RU"/>
-</c:if>
-<c:if test="${sessionScope.locale == 'locale_en_US'}">
-    <fmt:setBundle basename="locale_en_US"/>
-</c:if>
+<%@ include file="/WEB-INF/jsp/elements/_setLocale.jsp" %>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js" ></script>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,7 +28,6 @@
     <div id="wrapper">
         <div id="splash" class="container">
             <span><fmt:message key="body.title"/></span>
-
         </div>
 
         <div id="page" class="container">
@@ -43,7 +38,7 @@
                     </h2>
                     <div class="entry">
                         <span class="error"> ${errormessage}</span>
-                        <sf:form method="POST" modelAttribute="user" action="addUser">
+                        <sf:form method="POST" modelAttribute="user" action="${pageContext.servletContext.contextPath}/users/addUser">
                             Введите ваши данные:<br />
                             <table>
                                 <tr>
@@ -103,7 +98,7 @@
 
 <div id="footer">
     <p>
-        © 2016 </a>.
+        © 2016 .
     </p>
 </div>
 <!-- end #footer -->

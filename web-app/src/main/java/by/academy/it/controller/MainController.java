@@ -25,17 +25,22 @@ public class MainController {
     @Autowired
     private IApartmentTypeService apartmentService;
 
+//    @RequestMapping(value = "**", method = RequestMethod.GET)
+//    public String goMainPage(Model model) {
+//        return "main";
+//    }
+
     @RequestMapping(value = "main", method = RequestMethod.GET)
     public String showMainPage(Model model) {
         return "main";
     }
 
-    @RequestMapping(value = "**/test", method = RequestMethod.POST)
+    @RequestMapping(value = "test", method = RequestMethod.POST)
     public String showTestPage(Model model) {
         return "test";
     }
 
-    @RequestMapping(value = "**/back", method = RequestMethod.GET)
+    @RequestMapping(value = "back", method = RequestMethod.GET)
     public String goBack(Model model) {
         return "main";
     }
@@ -47,25 +52,27 @@ public class MainController {
         return "registration";
     }
 
-    @RequestMapping(value = "**/hotelInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "hotelInfo", method = RequestMethod.GET)
     public String showHotelInfo(Model model) {
         return "hotelInfo";
     }
 
-    @RequestMapping(value = "**/showAllRooms", method = RequestMethod.GET)
+    @RequestMapping(value = "showAllRooms", method = RequestMethod.GET)
     public String showAllRooms(Model model) {
-        List<ApartmentType> apartments = null;
+        List<ApartmentType> apartments;
         apartments = apartmentService.getAllApartments();
         model.addAttribute("apartments", apartments);
         return "apartmentTypes";
     }
 
-    @RequestMapping(value = "**/setLang", method = RequestMethod.POST)
+    @RequestMapping(value = "setLang", method = RequestMethod.GET)
     public String setLang(Model model, HttpServletRequest request) {
+        System.out.println("in setlang method");
     String page = null;
     String lang = request.getParameter(Parameters.LANG);
     HttpSession session = request.getSession();
-	session.setAttribute(Parameters.SESSION_LOCALE_ATTRIBUTE, BASENAME + lang);
+        System.out.println("Language" + BASENAME + lang);
+        session.setAttribute(Parameters.SESSION_LOCALE_ATTRIBUTE, BASENAME + lang);
     	return "main";
     }
 

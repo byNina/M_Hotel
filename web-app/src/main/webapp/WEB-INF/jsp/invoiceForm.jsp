@@ -9,12 +9,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Test</title>
+    <title><fmt:message key="index.title"/></title>
     <link
             href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
             rel="stylesheet" type="text/css"/>
     <link href="${pageContext.servletContext.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"
           media="screen"/>
+
 </head>
 <body>
 <div class="wrapper">
@@ -31,12 +32,12 @@
             <div id="content">
                 <div class="post">
                     <h2 class="title">
-                        <a href="#"><fmt:message key="body.greetings"/> </a>
+
                     </h2>
                     <div class="entry">
-                        Test
 
-                        <a href="back">Вернуться обратно</a>
+                        <p>Извините, страница находиться в разработке</p>
+
 
                     </div>
                 </div>

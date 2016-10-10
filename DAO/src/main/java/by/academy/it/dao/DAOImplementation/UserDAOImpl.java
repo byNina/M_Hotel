@@ -1,7 +1,8 @@
-package by.academy.it.dao;
+package by.academy.it.dao.DAOImplementation;
 
 import by.academy.it.beans.User;
-import by.academy.it.constants.AccessLevel;
+import by.academy.it.dao.DAOImplementation.BaseDAOImpl;
+import by.academy.it.dao.IUserDAO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +13,13 @@ import java.util.List;
  */
 @Repository
 public class UserDAOImpl extends BaseDAOImpl<User> implements IUserDAO<User> {
+    private static final String GET_ALL_USERS = "FROM User u";
+    private static final String GET_USER_BY_LOGIN_AND_PASS = "FROM User u WHERE u.login=:userLogin AND u.password=:userPassword ";
+    private static final String GET_USER_BY_LOGIN = "FROM User u WHERE u.login=:userLogin";
 
     @Override
     public List<User> getAllUsers() {
-        String hql = "FROM User u";
-        Query query = getSession().createQuery(hql);
+        Query query = getSession().createQuery(GET_ALL_USERS);
         List<User> results = query.list();
         return results;
     }
@@ -29,9 +32,8 @@ public class UserDAOImpl extends BaseDAOImpl<User> implements IUserDAO<User> {
 
     @Override
     public User getUser(String login, String password) {
-        User user = null;
-        String hql = "FROM User u WHERE u.login=:userLogin AND u.password=:userPassword ";
-        Query query = getSession().createQuery(hql);
+        User user;
+        Query query = getSession().createQuery(GET_USER_BY_LOGIN_AND_PASS);
         query.setParameter("userLogin", login);
         query.setParameter("userPassword", password);
         user = (User) query.uniqueResult();
@@ -40,15 +42,12 @@ public class UserDAOImpl extends BaseDAOImpl<User> implements IUserDAO<User> {
 
     @Override
     public User getUser(String login) {
-        User user = null;
-        String hql = "FROM User u WHERE u.login=:userLogin";
-        Query query = getSession().createQuery(hql);
+        User user;
+        Query query = getSession().createQuery(GET_USER_BY_LOGIN);
         query.setParameter("userLogin", login);
         user = (User) query.uniqueResult();
         return user;
     }
-
-
 
 
 }

@@ -45,20 +45,20 @@ public class UserController {
     private static Logger log = Logger.getLogger(UserController.class);
 
 
-    @RequestMapping(path = "**/userInfo", method = RequestMethod.GET)
+    @RequestMapping(path = "userInfo", method = RequestMethod.GET)
     private String showUserInfo(@RequestParam(value = "userId") Integer userId, ModelMap model) {
-        User user = null;
+        User user;
         user = (User) userService.getUserById(userId);
         System.out.println("user" + user);
         if (user != null) {
             model.addAttribute("user_info", user);
         } else {
-            //  TODO  there is no user
+            //  TODO if there is no user
         }
         return "userInfo";
     }
 
-    @RequestMapping(path = "**/users/login", method = RequestMethod.POST)
+    @RequestMapping(path = "users/login", method = RequestMethod.POST)
     private String login(ModelMap model, HttpServletRequest request) {
         System.out.println("Register");
         String page = null;
@@ -107,9 +107,9 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "**/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(Model model, HttpServletRequest request) {
-        String sideBar = (String) ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.GUEST_SIDE_BAR);
+        String sideBar = ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.GUEST_SIDE_BAR);
         request.getSession().invalidate();
         HttpSession session = request.getSession();
         AccessLevel accessLevel = AccessLevel.GUEST;
@@ -118,8 +118,8 @@ public class UserController {
         return "main";
     }
 
-    @RequestMapping(path = "**/addUser", method = RequestMethod.POST)
-    public String userRegistration(@Valid User user, ModelMap model, BindingResult result, HttpServletRequest request) {
+    @RequestMapping(path = "users/addUser", method = RequestMethod.POST)
+    public String userRegistration(@Valid User user, BindingResult result, ModelMap model,  HttpServletRequest request) {
         System.out.println("in addUser command");
         if (result.hasErrors()) {
             System.out.println("has valid error");
@@ -135,11 +135,11 @@ public class UserController {
         return "main";
     }
 
-    @RequestMapping(value = "**/showMyRequests", method = RequestMethod.GET)
+    @RequestMapping(value = "users/showMyRequests", method = RequestMethod.GET)
     public String showMyRequests(Model model, HttpServletRequest request, HttpSession session) {
-        List<Request> requests = null;
-        PaginationDTO pagination = null;
-        User user = null;
+        List<Request> requests;
+        PaginationDTO pagination ;
+        User user;
         int page = 1;
         if (session.getAttribute("pagination") == null) {
             pagination = new PaginationDTO();
@@ -170,7 +170,7 @@ public class UserController {
         return "requests";
     }
 
-    @RequestMapping(value = "**/gotonewrequestcreation", method = RequestMethod.GET)
+    @RequestMapping(value = "users/gotonewrequestcreation", method = RequestMethod.GET)
     public String goToRequestCreation(Model model, HttpServletRequest request) {
 
         return "newRequest";

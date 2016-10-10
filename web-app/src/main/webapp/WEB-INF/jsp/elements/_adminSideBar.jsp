@@ -1,16 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ include file="/WEB-INF/jsp/elements/_setLocale.jsp" %>
 
 <div>
     <h2>
-        AdminSideBar
+        <fmt:message key="side.panel.admin.intro"/>
     </h2>
     <ul class="list-style1">
-        <li><a href="showRequests">Показать все заявки</a></li>
-        <li><a href="${pageContext.request.contextPath}/getAllUsers">Показать всех пользователей</a></li>
-        <hr/>
+        <li><a href="${pageContext.servletContext.contextPath}/showRequests"> <fmt:message
+                key="side.panel.admin.showRequests"/></a></li>
+        <li><a href="${pageContext.request.contextPath}/getAllUsers"><fmt:message key="side.panel.admin.showUsers"/></a>
+        </li>
     </ul>
+    <hr/>
 </div>
 
 

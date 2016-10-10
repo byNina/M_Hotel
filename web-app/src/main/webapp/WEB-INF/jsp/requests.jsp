@@ -3,13 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if
-        test="${sessionScope.locale == 'locale_ru_RU' or empty sessionScope.locale}">
-    <fmt:setBundle basename="locale_ru_RU"/>
-</c:if>
-<c:if test="${sessionScope.locale == 'locale_en_US'}">
-    <fmt:setBundle basename="locale_en_US"/>
-</c:if>
+<%@ include file="/WEB-INF/jsp/elements/_setLocale.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -47,27 +41,27 @@
                         Requests
                         <table border="1">
                             <tr>
-                                <td>ID</td>
+                                <th>ID</th>
                                 <c:if test="${accessLevel == 'ADMIN'}">
-                                    <td>User</td>
+                                    <th>User</th>
                                 </c:if>
-                                <td>Check in</td>
-                                <td>Check out</td>
-                                <td>Adults</td>
-                                <td>Invoice</td>
+                                <th>Check in</th>
+                                <th>Check out</th>
+                                <th>Adults</th>
+                                <th>Invoice</th>
                             </tr>
 
                             <c:forEach items="${requests}" var="item">
 
-                                <form name="toInvoiceForm" method="post" action="toInvoice">
+                                <form name="toInvoiceForm" method="post" action="invoiceForm">
                                     <tr>
                                         <td>${item.id}</td>
 
                                         <c:if test="${accessLevel == 'ADMIN'}">
                                             <td><a href="userInfo?userId=${item.user.id}"> ${item.user.login}</a></td>
                                         </c:if>
-                                        <td>${item.checkIn}</td>
-                                        <td>${item.checkOut}</td>
+                                        <td><fmt:formatDate value='${item.checkIn}' pattern='yyyy-MM-dd'/></td>
+                                        <td><fmt:formatDate value='${item.checkOut}' pattern='yyyy-MM-dd'/></td>
                                         <td>${item.adults}</td>
                                         <td><c:choose>
                                             <c:when test="${empty item.invoice.id}">
@@ -106,7 +100,7 @@
 
 <div id="footer">
     <p>
-        © 2016 </a>.
+        © 2016 .
     </p>
 </div>
 <!-- end #footer -->

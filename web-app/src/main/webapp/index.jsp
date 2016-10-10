@@ -3,6 +3,9 @@
 <html>
 <head><title>Index</title></head>
 <body>
-<jsp:forward page="/WEB-INF/jsp/main.jsp"/>
-<%--<c:redirect url="/jsp/main" />--%>
-</body></html>
+ Index
+
+<%--<jsp:forward page="/WEB-INF/jsp/main.jsp"/>--%>
+<c:redirect url="main" />
+</body>
+</html>

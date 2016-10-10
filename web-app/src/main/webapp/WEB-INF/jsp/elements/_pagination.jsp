@@ -12,7 +12,7 @@
 <c:if test="${page>1}">
     <a href="showRequests?page=${page-1}">${page-1}</a>
 </c:if>
-<a href="showRequests?page=${page}">${page}</a>
+<a class="active" href="showRequests?page=${page}">${page}</a>
 <c:if test="${page<(pagination.pages)}">
     <a href="showRequests?page=${page+1}">${page+1}</a>
 </c:if>

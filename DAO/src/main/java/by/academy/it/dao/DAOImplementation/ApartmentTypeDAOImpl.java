@@ -1,6 +1,8 @@
-package by.academy.it.dao;
+package by.academy.it.dao.DAOImplementation;
 
 import by.academy.it.beans.ApartmentType;
+import by.academy.it.dao.DAOImplementation.BaseDAOImpl;
+import by.academy.it.dao.IApartmentTypeDAO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +13,11 @@ import java.util.List;
  */
 @Repository
 public class ApartmentTypeDAOImpl extends BaseDAOImpl<ApartmentType> implements IApartmentTypeDAO<ApartmentType> {
+    private static final String GET_ALL_APARTMENT_TYPES = "FROM ApartmentType";
 
     @Override
     public List<ApartmentType> getAllApartments() {
-        String hql = "FROM ApartmentType";
-        Query query = getSession().createQuery(hql);
+        Query query = getSession().createQuery(GET_ALL_APARTMENT_TYPES);
         List<ApartmentType> results = query.list();
         return results;
     }
