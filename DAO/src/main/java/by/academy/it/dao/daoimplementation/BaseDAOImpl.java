@@ -1,4 +1,4 @@
-package by.academy.it.dao.DAOImplementation;
+package by.academy.it.dao.daoimplementation;
 
 import by.academy.it.dao.IDAO;
 import by.academy.it.exceptions.DaoException;
@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

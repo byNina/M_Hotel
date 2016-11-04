@@ -38,6 +38,7 @@
                     <div class="entry">
                         ErrorPage
                         ${errorLoginOrPassword}
+                        ${errorMessage}
                     </div>
                 </div>
             </div>

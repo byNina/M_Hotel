@@ -37,7 +37,7 @@
                     <div class="entry">
                         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/resources/js/validation.js"></script>
                         New Request
-                        <form name="requestForm" method="POST" action="newRequest">
+                        <form name="requestForm" method="POST" action="${pageContext.servletContext.contextPath}/users/newRequest">
 
                             Введите ваши данные:<br/>
                             <table>

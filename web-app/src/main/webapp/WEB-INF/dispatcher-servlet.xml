@@ -10,7 +10,7 @@
     <context:component-scan base-package="by.academy.it.controller"/>
     <mvc:annotation-driven/>
 
-       <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="jspViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">

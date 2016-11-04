@@ -13,5 +13,6 @@ public class MessageConstants {
   public static final String EMPTY_FIELDS = "message.emptyfields";
   public static final String SUCCESS_OPERATION = "message.successoperation";
   public static final String FILDS_HAVE_ERRORS = "message.fildshaveerrors";
+  public static final String IN_DEVELOPING = "message.indeveloping";
 
 }

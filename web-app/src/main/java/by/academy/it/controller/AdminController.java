@@ -34,8 +34,7 @@ public class AdminController {
     private String getAllUsers(ModelMap model) {
         List<User> users;
         users = userService.getAllUsers();
-        System.out.println("users" + users);
-        if (!users.isEmpty() && (users != null)) {
+        if ((users != null) && !users.isEmpty()) {
             model.addAttribute("users", users);
         } else {
             //  TODO  if users is empty
@@ -55,14 +54,10 @@ public class AdminController {
             pagination = (PaginationDTO) session.getAttribute("pagination");
         }
         if (request.getParameter("page") != null) {
-            System.out.println("page" + page);
             page = Integer.parseInt(request.getParameter("page"));
         }
-        System.out.println(page + "page");
-//        requests = requestService.getAllRequests();
         requests = requestService.getAllRequests(page, pagination.getPagesize());
         int totalcount = requestService.getTotalCount();
-        System.out.println("totalcount" + totalcount);
         if (totalcount != 0) {
             int pages = totalcount / pagination.getPagesize() + 1;
             pagination.setPages(pages);

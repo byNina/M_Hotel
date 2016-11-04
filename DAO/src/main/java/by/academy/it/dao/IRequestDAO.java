@@ -1,7 +1,5 @@
 package by.academy.it.dao;
 
-import by.academy.it.beans.Request;
-
 import java.util.List;
 
 /**

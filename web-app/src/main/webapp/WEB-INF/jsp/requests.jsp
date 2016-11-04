@@ -65,7 +65,14 @@
                                         <td>${item.adults}</td>
                                         <td><c:choose>
                                             <c:when test="${empty item.invoice.id}">
-                                                <input type="submit" value="Выставить счет"/>
+                                                <c:choose>
+                                                <c:when test="${accessLevel == 'ADMIN'}">
+                                                    <input type="submit" value="Выставить счет"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    Запрос находиться в обработке
+                                                </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
                                                 № ${item.invoice.id} - ${item.invoice.totalPrice} ye - ${item.invoice.paid == 'true' ? "Оплачено" : "Не оплачено"}

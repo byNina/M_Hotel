@@ -81,7 +81,7 @@
 
 
     <build>
-        <finalName>web-app</finalName>
+        <finalName>Hotel</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

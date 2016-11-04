@@ -35,25 +35,22 @@ public class ServletSecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("in filter");
         log.debug("In filter");
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        if (req.getSession() == null){
-            return;
-        }
-        HttpSession session = req.getSession();
-        AccessLevel accessLevel = (AccessLevel) session.getAttribute(Parameters.ACCESS_LEVEL_ATTRIBUTE);
-        System.out.println("SESSION" + session.getAttributeNames());
-        String sideBar = ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.GUEST_SIDE_BAR);
+        if (req.getSession() != null) {
+            HttpSession session = req.getSession();
+            AccessLevel accessLevel = (AccessLevel) session.getAttribute(Parameters.ACCESS_LEVEL_ATTRIBUTE);
+            String sideBar = ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.GUEST_SIDE_BAR);
 
-        if (accessLevel == null) {
+            if (accessLevel == null) {
 
-            accessLevel = AccessLevel.GUEST;
-            session.setAttribute(Parameters.ACCESS_LEVEL_ATTRIBUTE, accessLevel);
-            session.setAttribute(Parameters.SIDE_BAR, sideBar);
-            resp.sendRedirect(req.getContextPath() + ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.MAIN_PAGE_PATH));
-//            return;
+                accessLevel = AccessLevel.GUEST;
+                session.setAttribute(Parameters.ACCESS_LEVEL_ATTRIBUTE, accessLevel);
+                session.setAttribute(Parameters.SIDE_BAR, sideBar);
+                resp.sendRedirect(req.getContextPath() + ConfigurationManager.INSTANCE.getProperty(ConfigsConstants.MAIN_PAGE_PATH));
+                return;
+            }
         }
         chain.doFilter(request, response);
     }

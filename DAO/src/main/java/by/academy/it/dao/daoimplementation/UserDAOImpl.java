@@ -1,7 +1,6 @@
-package by.academy.it.dao.DAOImplementation;
+package by.academy.it.dao.daoimplementation;
 
 import by.academy.it.beans.User;
-import by.academy.it.dao.DAOImplementation.BaseDAOImpl;
 import by.academy.it.dao.IUserDAO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;

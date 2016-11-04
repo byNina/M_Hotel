@@ -58,7 +58,6 @@ public class UserService implements IUserService<User> {
                 isLogIn = true;
             }
         } catch (HibernateException e) {
-            System.out.println("isAuthorized Error");
             log.error("Error getting user by Login & Password" + e);
         }
         return isLogIn;

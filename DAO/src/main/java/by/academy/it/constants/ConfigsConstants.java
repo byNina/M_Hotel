@@ -8,7 +8,6 @@ package by.academy.it.constants;
 
 public class ConfigsConstants {
   
-  public static final String DATABASE_SOURCE = "java:/comp/env/jdbc/hotel_booking";
   public static final String CONFIGS_SOURCE = "configs";
   public static final String MESSAGES_SOURCE = "messages";
   

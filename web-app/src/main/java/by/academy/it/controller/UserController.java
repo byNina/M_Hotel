@@ -29,12 +29,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by User on 24.09.2016.
  */
 @Controller
 public class UserController {
+    private static Logger log = Logger.getLogger(UserController.class);
 
     @Autowired
     private IUserService userService;
@@ -42,30 +45,24 @@ public class UserController {
     @Autowired
     private IRequestService requestService;
 
-    private static Logger log = Logger.getLogger(UserController.class);
-
-
     @RequestMapping(path = "userInfo", method = RequestMethod.GET)
     private String showUserInfo(@RequestParam(value = "userId") Integer userId, ModelMap model) {
         User user;
         user = (User) userService.getUserById(userId);
-        System.out.println("user" + user);
         if (user != null) {
             model.addAttribute("user_info", user);
         } else {
-            //  TODO if there is no user
+            log.warn("There is no such user with id=" + userId);
+            return "errorPage";
         }
         return "userInfo";
     }
 
     @RequestMapping(path = "users/login", method = RequestMethod.POST)
     private String login(ModelMap model, HttpServletRequest request) {
-        System.out.println("Register");
         String page = null;
         String login = request.getParameter(Parameters.LOGIN);
         String password = request.getParameter(Parameters.PASSWORD);
-        System.out.println(login + password);
-        System.out.println(userService.isAuthorized(login, password));
         if (userService.isAuthorized(login, password)) {
             HttpSession session = request.getSession();
             User user = (User) userService.getUser(login);
@@ -92,20 +89,6 @@ public class UserController {
         return page;
     }
 
-    private AccessLevel checkAccessLevel(User user) {
-        AccessLevel accessLvl = null;
-        Integer accountType = user.getAccountType();
-        if (accountType != null) {
-            if (AccessLevel.USER.accessLevel() == accountType) {
-                accessLvl = AccessLevel.USER;
-            } else {
-                accessLvl = AccessLevel.ADMIN;
-            }
-        }
-        return accessLvl;
-
-    }
-
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(Model model, HttpServletRequest request) {
@@ -119,26 +102,32 @@ public class UserController {
     }
 
     @RequestMapping(path = "users/addUser", method = RequestMethod.POST)
-    public String userRegistration(@Valid User user, BindingResult result, ModelMap model,  HttpServletRequest request) {
-        System.out.println("in addUser command");
+    public String userRegistration(@Valid User user, BindingResult result, ModelMap model, HttpServletRequest request) {
         if (result.hasErrors()) {
-            System.out.println("has valid error");
             request.setAttribute("errorMessage", MessageManager.INSTANCE.getProperty(MessageConstants.FILDS_HAVE_ERRORS));
             return "registration";
         }
-        if (user != null) {
-            System.out.println("New User" + user);
-            userService.save(user);
-            model.addAttribute("user", user);
+        if (validation(user)) {
+            if (!isUserExist(user)) {
+                userService.save(user);
+                model.addAttribute("user", user);
+                return "main";
+            } else {
+                clearFilds(user);
+                request.setAttribute("errorMessage", MessageManager.INSTANCE.getProperty(MessageConstants.USER_EXSISTS));
+                return "registration";
+            }
+        } else {
+            clearFilds(user);
+            request.setAttribute("errorMessage", MessageManager.INSTANCE.getProperty(MessageConstants.FILDS_HAVE_ERRORS));
+            return "registration";
         }
-        System.out.println("before out");
-        return "main";
     }
 
     @RequestMapping(value = "users/showMyRequests", method = RequestMethod.GET)
     public String showMyRequests(Model model, HttpServletRequest request, HttpSession session) {
         List<Request> requests;
-        PaginationDTO pagination ;
+        PaginationDTO pagination;
         User user;
         int page = 1;
         if (session.getAttribute("pagination") == null) {
@@ -147,21 +136,18 @@ public class UserController {
             pagination = (PaginationDTO) session.getAttribute("pagination");
         }
         if (request.getParameter("page") != null) {
-            System.out.println("page" + page);
             page = Integer.parseInt(request.getParameter("page"));
         }
         user = (User) session.getAttribute("user");
         requests = requestService.getUserRequests(user, page, pagination.getPagesize());
-        int totalcount = requestService.getTotalCount();
-        System.out.println("totalcount" + totalcount);
-        if (totalcount != 0) {
-            int pages = totalcount / pagination.getPagesize() + 1;
+        int totalCount = requestService.getTotalCount();
+        if (totalCount != 0) {
+            int pages = totalCount / pagination.getPagesize() + 1;
             pagination.setPages(pages);
         }
-        System.out.println("pages" + pagination.getPages());
         if (!requests.isEmpty() && (requests != null)) {
             model.addAttribute("requests", requests);
-            model.addAttribute("totalcount", totalcount);
+            model.addAttribute("totalcount", totalCount);
             model.addAttribute("page", page);
             session.setAttribute("pagination", pagination);
         } else {
@@ -175,5 +161,63 @@ public class UserController {
 
         return "newRequest";
     }
+
+    private AccessLevel checkAccessLevel(User user) {
+        AccessLevel accessLvl = null;
+        Integer accountType = user.getAccountType();
+        if (accountType != null) {
+            if (AccessLevel.USER.accessLevel() == accountType) {
+                accessLvl = AccessLevel.USER;
+            } else {
+                accessLvl = AccessLevel.ADMIN;
+            }
+        }
+        return accessLvl;
+    }
+
+    @RequestMapping(path = "/users/newRequest", method = RequestMethod.POST)
+    public String createRequest(Model model, HttpServletRequest request) {
+        request.setAttribute("errorMessage", MessageManager.INSTANCE.getProperty(MessageConstants.IN_DEVELOPING));
+        return "errorpage";
+
+    }
+
+    private boolean validation(User user) {
+        if (checkLogin(user.getLogin().trim()) && checkPassword(user.getPassword().trim())) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkLogin(String userLogin) {
+        Pattern p = Pattern.compile("^[a-zA-Z0-9_-]{4,10}$");
+        Matcher m = p.matcher(userLogin);
+        return m.matches();
+    }
+
+    public static boolean checkPassword(String userPassword) {
+        Pattern p = Pattern.compile("^[a-zA-Z0-9_-]{4,10}$");
+        Matcher m = p.matcher(userPassword);
+        return m.matches();
+    }
+
+    private void clearFilds(User user) {
+        user.setLogin(null);
+        user.setPassword(null);
+        user.setAccountType(null);
+        user.setUserInfo(null);
+    }
+
+    private boolean isUserExist(User newUser) {
+        if (newUser != null) {
+            User existingUser = (User) userService.getUser(newUser.getLogin().trim());
+            if (existingUser == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
 

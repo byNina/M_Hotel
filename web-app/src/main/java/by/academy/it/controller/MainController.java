@@ -46,7 +46,7 @@ public class MainController {
     }
 
 
-    @RequestMapping(value = "**/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String goToRegistration(ModelMap model) {
         model.put("user", new User());
         return "registration";
@@ -67,13 +67,12 @@ public class MainController {
 
     @RequestMapping(value = "setLang", method = RequestMethod.GET)
     public String setLang(Model model, HttpServletRequest request) {
-        System.out.println("in setlang method");
-    String page = null;
-    String lang = request.getParameter(Parameters.LANG);
-    HttpSession session = request.getSession();
+        String page = null;
+        String lang = request.getParameter(Parameters.LANG);
+        HttpSession session = request.getSession();
         System.out.println("Language" + BASENAME + lang);
         session.setAttribute(Parameters.SESSION_LOCALE_ATTRIBUTE, BASENAME + lang);
-    	return "main";
+        return "main";
     }
 
 

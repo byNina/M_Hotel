@@ -26,11 +26,8 @@ public class ApartmentTypeService implements IApartmentTypeService<ApartmentType
     public List<ApartmentType> getAllApartments() {
         List<ApartmentType> apartments = null;
         try {
-            System.out.println("before dao" );
             apartments = apartmentTypeDAO.getAllApartments();
-            System.out.println("after dao" + apartments);
         } catch (HibernateException e) {
-            System.out.println("hibern error" + e);
             log.error("Error getting users" + e);
         }
         return apartments;

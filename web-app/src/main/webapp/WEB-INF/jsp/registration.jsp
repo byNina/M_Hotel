@@ -6,7 +6,7 @@
 
 <%@ include file="/WEB-INF/jsp/elements/_setLocale.jsp" %>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,27 +37,27 @@
                         <a href="#"><fmt:message key="body.greetings"/> </a>
                     </h2>
                     <div class="entry">
-                        <span class="error"> ${errormessage}</span>
-                        <sf:form method="POST" modelAttribute="user" action="${pageContext.servletContext.contextPath}/users/addUser">
-                            Введите ваши данные:<br />
+                        <span class="error"> ${errorMessage}</span>
+                        <sf:form method="POST" action="${pageContext.servletContext.contextPath}/users/addUser"
+                                 modelAttribute="user">
+                            Введите ваши данные:<br/>
                             <table>
                                 <tr>
                                     <td>Логин:</td>
-                                    <td><sf:input type="text" name="login" path="login" value="" size="20"/></td>
+                                    <td><sf:input type="text" name="login" path="login" value="" size="20"
+                                                  style="border-bottom: none"/>
+                                        <p><sf:errors path="login" cssClass="error"/></p>
+                                        <p>Логин должен быть не короче 4 символов</p></td>
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><sf:errors path="login" cssClass="error"/></td>
-                                </tr>
+
                                 <tr>
                                     <td>Пароль:</td>
                                     <td><sf:input type="password" name="password" path="password" value=""
-                                                  size="20"/></td>
+                                                  size="20" style="border-bottom: none"/>
+                                        <p><sf:errors path="password" cssClass="error"/></p>
+                                        <p>Пароль должен состоять из цифр и не быть короче 4 символов</p></td>
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><sf:errors path="password" cssClass="error"/></td>
-                                </tr>
+
                                 <tr>
                                     <td>Контактная информация:</td>
                                     <td><sf:input type="text" name="user_info" path="userInfo" value="" size="20"/></td>
